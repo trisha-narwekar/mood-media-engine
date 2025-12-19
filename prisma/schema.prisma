@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output = "../src/generate"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ContentItem {
+  id            String @id @default(uuid())
+  title         String
+  type          ContentType
+  energy        Energy
+  moods         Mood[]
+  duration      Int
+  createdAt     DateTime @default(now())
+}
+
+model Session {
+  id            String   @id @default(uuid())
+  mood          Mood
+  energy        Energy
+  timeAvailable Int
+  chosenItemId  String
+  feedback      Feedback?
+  createdAt     DateTime @default(now())
+}
+
+enum ContentType {
+  MUSIC
+  READING
+  GAME
+  OFFLINE_ACTIVITY
+}
+
+enum Energy {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Mood {
+  ANXIOUS
+  BORED
+  FOCUSED
+  SAD
+  NOSTALGIC
+}
+
+enum Feedback {
+  UP
+  DOWN
+}
