@@ -1,10 +1,4 @@
-import { PrismaClient } from '../../src/generate/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-
-const adapter = new PrismaPg({ 
-  connectionString: process.env.DATABASE_URL 
-});
-const prisma = new PrismaClient({ adapter });
+import { prisma } from '../../src/db/prisma.js';
 
 async function main() {
   await prisma.contentItem.createMany({
